@@ -18,5 +18,11 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, SearchTripActivity::class.java)
             startActivity(intent)
         }
+
+        val profile: ImageView = findViewById(R.id.iv_img_profile)
+        profile.setOnClickListener {
+            val intent = Intent(this, BarraActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

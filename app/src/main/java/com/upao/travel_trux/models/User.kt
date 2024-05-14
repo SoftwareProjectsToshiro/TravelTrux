@@ -20,6 +20,13 @@ class User {
         this.puntos = puntos
     }
 
+    constructor(idUsuario: Long, nombre: String, email: String, phone: String) {
+        this.idUsuario = idUsuario
+        this.nombre = nombre
+        this.email = email
+        this.phone = phone
+    }
+
     constructor() {
     }
 

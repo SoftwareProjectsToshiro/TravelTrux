@@ -52,9 +52,11 @@
             android:layout_marginBottom="25dp"
             android:gravity="center_horizontal">
             <ImageView
+                android:id="@+id/iv_img_profile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:contentDescription="@string/promotion"
+                android:clickable="true"
+                android:contentDescription="@string/perfil"
                 android:src="@drawable/perfil" />
         </LinearLayout>
         <LinearLayout

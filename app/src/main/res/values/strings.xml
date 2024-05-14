@@ -67,4 +67,5 @@
     <string name="user_lastname">Apellidos</string>
     <string name="password">Contraseña</string>
     <string name="confirm_password">Repetir Contraseña</string>
+    <string name="perfil">Perfil</string>
 </resources>
