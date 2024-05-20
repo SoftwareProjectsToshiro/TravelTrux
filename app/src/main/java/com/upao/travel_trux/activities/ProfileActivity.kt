@@ -1,16 +1,17 @@
-package com.upao.travel_trux.activities
-
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.upao.travel_trux.R
+import com.upao.travel_trux.activities.EditarActivity
 
-class MainActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
+    lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,18 +19,6 @@ class MainActivity : AppCompatActivity() {
             statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT) // light causes internally enforce the navigation bar to be fully transparent
         )
-        setContentView(R.layout.activity_main)
-
-        val loginButton : Button = findViewById(R.id.btnSignIn)
-        loginButton.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
-        }
-
-        val createAccount : TextView = findViewById(R.id.tvRegister)
-        createAccount.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
+        setContentView(R.layout.activity_profile)
     }
 }

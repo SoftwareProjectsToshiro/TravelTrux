@@ -17,7 +17,7 @@ class BarraActivity : AppCompatActivity() {
 
         val information: Button = findViewById(R.id.btnInformation)
         information.setOnClickListener {
-            val intent = Intent(this, PerfilActivity::class.java)
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
     }

@@ -7,15 +7,33 @@
 
     <style name="Theme.TravelTrux" parent="Base.Theme.TravelTrux" />
 
-    <style name="ButtonRound" parent="android:Widget.Button">
+    <style name="ButtonSignIn" parent="android:Widget.Button">
         <item name="backgroundTint">@color/black</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_sign_in</item>
+    </style>
+
+    <style name="ButtonStyle" parent="android:Widget.Button">
+        <item name="backgroundTint">@color/theme_color</item>
+        <item name="android:background">@drawable/button_register</item>
     </style>
 
     <style name="EditTextSignIn" parent="android:Widget.EditText">
         <item name="android:background">@drawable/edit_sign_in</item>
         <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Theme.TravelTrux.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TravelTrux.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TravelTrux.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TextNavDrawer" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

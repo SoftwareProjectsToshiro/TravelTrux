@@ -68,4 +68,25 @@
     <string name="password">Contraseña</string>
     <string name="confirm_password">Repetir Contraseña</string>
     <string name="perfil">Perfil</string>
+    <string name="logo_name">Travel Trux</string>
+    <string name="button_edit_profile">Editar Perfil</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Perfil</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_information">Mi información</string>
+    <string name="menu_points">Puntos</string>
+    <string name="menu_search_trips">Buscar viajes</string>
+    <string name="menu_us">Quienes somos</string>
+    <string name="menu_nav_coments">Comentarios</string>
+    <string name="menu_promotions">Promociones</string>
+    <string name="menu_locations">Ubicación de ruta de viaje</string>
+    <string name="menu_profile">Perfil</string>
 </resources>

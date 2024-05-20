@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
     <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,14 +16,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="vertical"
             android:layout_marginTop="30dp"
-            tools:ignore="UselessParent">
+            tools:ignore="UseCompoundDrawables,UselessParent">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/logo_trux"
                 android:contentDescription="@string/logo">
             </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logo_name"
+                android:textSize="30sp"
+                android:textColor="@color/white"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -78,7 +84,7 @@
                 android:gravity="center">
 
                 <Button
-                    style="@style/ButtonRound"
+                    style="@style/ButtonSignIn"
                     android:id="@+id/btnSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="45dp"
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
