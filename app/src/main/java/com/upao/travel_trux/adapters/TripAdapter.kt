@@ -12,7 +12,7 @@ import com.upao.travel_trux.models.adaptersModel.TripAdapterModel
 class TripAdapter(private val trips: ArrayList<TripAdapterModel>) : RecyclerView.Adapter<TripAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.trip_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_trip, parent, false)
         return ViewHolder(view)
     }
 

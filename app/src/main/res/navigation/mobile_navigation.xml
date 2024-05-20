@@ -17,9 +17,9 @@
         android:label="@string/menu_us_companie"
         tools:layout="@layout/fragment_us" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_slideshow"-->
-<!--        android:name="com.upao.travel_trux.ui.slideshow.SlideshowFragment"-->
-<!--        android:label="@string/menu_slideshow"-->
-<!--        tools:layout="@layout/fragment_slideshow" />-->
+    <fragment
+        android:id="@+id/nav_coments"
+        android:name="com.upao.travel_trux.ui.coments.ComentsFragment"
+        android:label="@string/menu_coments"
+        tools:layout="@layout/fragment_coments" />
 </navigation>
