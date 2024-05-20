@@ -115,7 +115,7 @@
                 android:translationZ="1dp"
                 android:stateListAnimator="@null"
                 android:textSize="26sp"
-                android:text="@string/save" />
+                android:text="@string/create_user" />
 
         </LinearLayout>
     </LinearLayout>

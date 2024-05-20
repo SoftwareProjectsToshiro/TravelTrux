@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.upao.travel_trux.R
-import com.upao.travel_trux.models.TripModel
+import com.upao.travel_trux.models.adaptersModel.TripAdapterModel
 
-class TripAdapter(private val trips: ArrayList<TripModel>) : RecyclerView.Adapter<TripAdapter.ViewHolder>(){
+class TripAdapter(private val trips: ArrayList<TripAdapterModel>) : RecyclerView.Adapter<TripAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.trip_item, parent, false)

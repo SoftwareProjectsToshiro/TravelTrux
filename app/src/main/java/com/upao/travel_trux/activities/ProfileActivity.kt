@@ -1,3 +1,5 @@
+package com.upao.travel_trux.activities
+
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -24,7 +26,7 @@ class ProfileActivity : AppCompatActivity() {
 
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
-            navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT) // light causes internally enforce the navigation bar to be fully transparent
+            navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
         )
 
         binding = ActivityProfileBinding.inflate(layoutInflater)
