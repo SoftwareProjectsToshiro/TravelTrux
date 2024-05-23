@@ -51,6 +51,7 @@
                 tools:ignore="SmallSp" />
 
             <Button
+                android:id="@+id/btn_more_trip_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/theme_color"
