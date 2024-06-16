@@ -50,6 +50,7 @@ class UserRepository(context: Context) {
     }
 
     fun login(email: String, password: String): Boolean {
+        val apiService = Apiclient.createService(ApiService::class.java)
         return true
     }
 

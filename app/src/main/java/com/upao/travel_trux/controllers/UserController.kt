@@ -13,8 +13,10 @@ class UserController(context: Context) {
 
     private val userService = UserService(context)
 
-    fun login(email: String, password: String): Boolean {
-        return true
+    fun login(context: Context, email: String, password: String, onResult: (Boolean) -> Unit) {
+        userService.login(email, password) { isSuccess ->
+            onResult(isSuccess)
+        }
     }
 
     fun register(context: Context, user: RegisterRequest, onResult: (Boolean) -> Unit) {

@@ -12,8 +12,13 @@ class UserService(context: Context) {
 
     private val userRepository = UserRepository(context)
 
-    fun login(email: String, password: String): Boolean {
-        return true
+    fun login(email: String, password: String, onResult: (Boolean) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val isSuccess = userRepository.login(email, password)
+            withContext(Dispatchers.Main) {
+                onResult(isSuccess)
+            }
+        }
     }
 
     fun register(context: Context, user: RegisterRequest, onResult: (Boolean) -> Unit) {
