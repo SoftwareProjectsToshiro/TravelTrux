@@ -9,6 +9,7 @@ data class User (
     @SerializedName("email") val email: String,
     @SerializedName("phone") val phone: String
 ){
+
     override fun toString(): String {
         return "User(id=$id, nombre='$nombre', apellido='$apellido', email='$email', phone='$phone')"
     }

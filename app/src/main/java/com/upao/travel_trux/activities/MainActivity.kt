@@ -4,13 +4,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
+import com.upao.travel_trux.controllers.UserController
+import com.upao.travel_trux.models.requestModel.LoginRequest
 
 class MainActivity : AppCompatActivity() {
+
+    private val userController = UserController(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +27,15 @@ class MainActivity : AppCompatActivity() {
 
         val loginButton : Button = findViewById(R.id.btnSignIn)
         loginButton.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
+            val email = findViewById<EditText>(R.id.etEmail).text.toString()
+            val password = findViewById<EditText>(R.id.etPassword).text.toString()
+            val user = LoginRequest(email, password)
+            userController.login(this, user) { isSuccess ->
+                if (isSuccess) {
+                    val intent = Intent(this, MenuActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
 
         val createAccount : TextView = findViewById(R.id.tvRegister)

@@ -8,17 +8,36 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
+import com.upao.travel_trux.controllers.UserController
+import com.upao.travel_trux.databinding.ActivityMenuBinding
+import com.upao.travel_trux.helpers.SharedPreferencesManager
+import com.upao.travel_trux.models.requestModel.LoginRequest
 
 class MenuActivity : AppCompatActivity() {
+    private val userController = UserController(this)
+    private lateinit var binding: ActivityMenuBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
         )
 
-        setContentView(R.layout.activity_menu)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val getUser = SharedPreferencesManager.getUserData(this)
+        if (getUser == null) {
+            goLogin()
+        } else {
+            val user = getUser.split(",")
+            val userLogin = LoginRequest(user[0], user[1])
+            userController.login(this, userLogin) { isSuccess ->
+                if (!isSuccess) {
+                    goLogin()
+                }
+            }
+        }
 
         val searchTrip: ImageView = findViewById(R.id.iv_img_search)
         searchTrip.setOnClickListener {
@@ -31,5 +50,11 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun goLogin() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

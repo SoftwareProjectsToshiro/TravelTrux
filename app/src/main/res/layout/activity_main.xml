@@ -56,22 +56,22 @@
 
                 <EditText
                     style="@style/EditTextSignIn"
-                    android:id="@+id/etNombre"
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:hint="@string/email_sign_in_edt"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     tools:ignore="LabelFor"
                     android:autofillHints="" />
 
                 <EditText
                     style="@style/EditTextSignIn"
-                    android:id="@+id/etLastName"
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:hint="@string/password_sign_in_edt"
                     tools:ignore="LabelFor"
                     android:autofillHints="" />

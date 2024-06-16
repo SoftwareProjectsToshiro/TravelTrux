@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.upao.travel_trux.handlerSQLite.TABLES
 import com.upao.travel_trux.models.User
+import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
 import com.upao.travel_trux.models.responseModel.RegisterResponse
 import com.upao.travel_trux.service.UserService
@@ -13,8 +14,8 @@ class UserController(context: Context) {
 
     private val userService = UserService(context)
 
-    fun login(context: Context, email: String, password: String, onResult: (Boolean) -> Unit) {
-        userService.login(email, password) { isSuccess ->
+    fun login(context: Context, user: LoginRequest, onResult: (Boolean) -> Unit) {
+        userService.login(context, user) { isSuccess ->
             onResult(isSuccess)
         }
     }
