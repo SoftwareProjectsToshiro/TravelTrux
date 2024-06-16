@@ -1,36 +1,15 @@
 package com.upao.travel_trux.models
 
-class User {
+import com.google.gson.annotations.SerializedName
 
-    var idUsuario: Long = 0
-    var nombre: String = ""
-    var apellido: String = ""
-    var email: String = ""
-    var password: String = ""
-    var phone: String = ""
-    var puntos: Int = 0
-
-    constructor(idUsuario: Long, nombre: String, apellido: String, email: String, password: String, phone: String, puntos: Int) {
-        this.idUsuario = idUsuario
-        this.nombre = nombre
-        this.apellido = apellido
-        this.email = email
-        this.password = password
-        this.phone = phone
-        this.puntos = puntos
-    }
-
-    constructor(idUsuario: Long, nombre: String, email: String, phone: String) {
-        this.idUsuario = idUsuario
-        this.nombre = nombre
-        this.email = email
-        this.phone = phone
-    }
-
-    constructor() {
-    }
-
+data class User (
+    @SerializedName("id") val id: Int,
+    @SerializedName("nombre") val nombre: String,
+    @SerializedName("apellido") val apellido: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone") val phone: String
+){
     override fun toString(): String {
-        return "User(idUsuario=$idUsuario, nombre='$nombre', apellido='$apellido', email='$email', password='$password', phone='$phone', puntos=$puntos)"
+        return "User(id=$id, nombre='$nombre', apellido='$apellido', email='$email', phone='$phone')"
     }
 }

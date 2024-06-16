@@ -11,6 +11,10 @@ class TABLES {
     val USER_PASSWORD = "password"
     val USER_PHONE = "phone"
     val USER_POINTS = "puntos"
+    val USER_ISACTIVE = "isActive"
+    val USER_ISDELETE = "isDelete"
+    val USER_CREATEDAT = "createdAT"
+    val USER_UPDATEDAT = "updatedAT"
 
     val CREATE_TABLE_USER = ("CREATE TABLE " + TABLE_USER + "("
             + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -19,7 +23,11 @@ class TABLES {
             + USER_EMAIL + " TEXT,"
             + USER_PASSWORD + " TEXT,"
             + USER_PHONE + " TEXT,"
-            + USER_POINTS + " INTEGER"
+            + USER_POINTS + " INTEGER,"
+            + USER_ISACTIVE + " INTEGER,"
+            + USER_ISDELETE + " INTEGER,"
+            + USER_CREATEDAT + " TEXT,"
+            + USER_UPDATEDAT + " TEXT"
             + ")")
 
 
@@ -61,7 +69,4 @@ class TABLES {
             + "FOREIGN KEY (" + RESERVA_ID_USUARIO + ") REFERENCES " + TABLE_USER + "(" + USER_ID + "),"
             + "FOREIGN KEY (" + RESERVA_ID_PAQUETE + ") REFERENCES " + TABLE_PAQUETES + "(" + PAQUETE_ID + ")"
             + ")")
-
-
-
 }

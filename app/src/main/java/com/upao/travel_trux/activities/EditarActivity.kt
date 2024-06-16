@@ -24,17 +24,17 @@ class EditarActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_editar)
 
-        userController.open()
+//        userController.open()
 
         val btnGuardar: Button = findViewById(R.id.btnPerfilGuardar)
         btnGuardar.setOnClickListener {
-            val id: Long = 0
-            val nombre  = findViewById<EditText>(R.id.etNombre).text.toString()
-            val email = findViewById<EditText>(R.id.etCorreo).text.toString()
-            val phone = findViewById<EditText>(R.id.etTelefono).text.toString()
-
-            val user = User(id, nombre, email, phone)
-            userController.update(user)
+//            val id: Long = 0
+//            val nombre  = findViewById<EditText>(R.id.etNombre).text.toString()
+//            val email = findViewById<EditText>(R.id.etCorreo).text.toString()
+//            val phone = findViewById<EditText>(R.id.etTelefono).text.toString()
+//
+//            val user = User(id, nombre, email, phone)
+//            userController.update(user)
 
             Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, SearchTripActivity::class.java)
