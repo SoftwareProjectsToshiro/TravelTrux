@@ -26,19 +26,6 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val getUser = SharedPreferencesManager.getUserData(this)
-        if (getUser == null) {
-            goLogin()
-        } else {
-            val user = getUser.split(",")
-            val userLogin = LoginRequest(user[0], user[1])
-            userController.login(this, userLogin) { isSuccess ->
-                if (!isSuccess) {
-                    goLogin()
-                }
-            }
-        }
-
         val searchTrip: ImageView = findViewById(R.id.iv_img_search)
         searchTrip.setOnClickListener {
             val intent = Intent(this, SearchTripActivity::class.java)
@@ -50,11 +37,5 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun goLogin() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }

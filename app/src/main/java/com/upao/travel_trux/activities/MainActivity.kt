@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
 import com.upao.travel_trux.controllers.UserController
+import com.upao.travel_trux.helpers.SharedPreferencesManager
 import com.upao.travel_trux.models.requestModel.LoginRequest
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,21 @@ class MainActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_main)
 
+        val getUser = SharedPreferencesManager.getUserData(this)
+        if (getUser != null) {
+            val user = getUser.split(",")
+            val userLogin = LoginRequest(user[0], user[1])
+            userController.login(this, userLogin) { isSuccess ->
+                if (!isSuccess) {
+                    goLogin()
+                } else {
+                    val intent = Intent(this, MenuActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                }
+            }
+        }
+
         val loginButton : Button = findViewById(R.id.btnSignIn)
         loginButton.setOnClickListener {
             val email = findViewById<EditText>(R.id.etEmail).text.toString()
@@ -33,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             userController.login(this, user) { isSuccess ->
                 if (isSuccess) {
                     val intent = Intent(this, MenuActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                 }
             }
@@ -43,5 +60,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun goLogin() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

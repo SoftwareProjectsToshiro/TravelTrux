@@ -3,6 +3,7 @@ package com.upao.travel_trux.activities
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.upao.travel_trux.R
 import com.upao.travel_trux.databinding.ActivityProfileBinding
+import com.upao.travel_trux.helpers.SharedPreferencesManager
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -37,6 +39,10 @@ class ProfileActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_profile)
+        val getUser = SharedPreferencesManager.getUserData(this)
+        val user = getUser?.split(",")
+        val email = user?.get(0)
+        navView.getHeaderView(0).findViewById<TextView>(R.id.textViewEmail).text = email
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
