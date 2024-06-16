@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
 import com.upao.travel_trux.controllers.UserController
 import com.upao.travel_trux.databinding.ActivityRegisterBinding
+import com.upao.travel_trux.helpers.SharedPreferencesManager
 import com.upao.travel_trux.models.requestModel.RegisterRequest
 import java.util.regex.Pattern
 
@@ -60,6 +61,8 @@ class RegisterActivity : AppCompatActivity() {
 
             userController.register(this, user) { isSuccess ->
                 if (isSuccess) {
+                    val saveUser = "$email,$password"
+                    SharedPreferencesManager.setUserData(this, saveUser)
                     val intent = Intent(this, MenuActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
