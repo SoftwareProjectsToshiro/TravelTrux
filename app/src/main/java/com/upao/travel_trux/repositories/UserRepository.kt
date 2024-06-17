@@ -61,6 +61,8 @@ class UserRepository(context: Context) {
                 loginResponse?.token.let {
                     SharedPreferencesManager.setToken(context, it!!)
                 }
+                val saveUser = "${user.email},${user.password}"
+                SharedPreferencesManager.setUserData(context, saveUser)
                 Toast.makeText(context,"Bienvenido $email" , Toast.LENGTH_SHORT).show()
                 true
             } else {
