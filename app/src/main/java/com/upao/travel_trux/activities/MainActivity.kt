@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity() {
             val user = getUser.split(",")
             val userLogin = LoginRequest(user[0], user[1])
             userController.login(this, userLogin) { isSuccess ->
-                if (!isSuccess) {
-                    goLogin()
-                } else {
+                if (isSuccess) {
                     val intent = Intent(this, MenuActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
@@ -60,11 +58,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun goLogin() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }
