@@ -4,6 +4,7 @@ class TripAdapterModel(
     var id: Int,
     var nombre: String,
     var descripcion: String,
-    var imagen: String
+    var imagen: String,
+    var precio: Double,
 ) {
 }

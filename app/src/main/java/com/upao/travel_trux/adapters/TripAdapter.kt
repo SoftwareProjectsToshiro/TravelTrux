@@ -31,6 +31,7 @@ class TripAdapter(private val trips: ArrayList<TripAdapterModel>) : RecyclerView
             Picasso.get().load(trip.imagen).into(ivImg)
             itemView.findViewById<TextView>(R.id.title_name).text = trip.nombre
             itemView.findViewById<TextView>(R.id.tv_title_description).text = trip.descripcion
+            itemView.findViewById<TextView>(R.id.tv_amount).text = trip.precio.toString()
         }
     }
 }

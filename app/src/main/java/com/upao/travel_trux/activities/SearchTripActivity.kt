@@ -1,7 +1,9 @@
 package com.upao.travel_trux.activities
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +23,10 @@ class SearchTripActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT) // light causes internally enforce the navigation bar to be fully transparent
+        )
         setContentView(R.layout.activity_search_trip)
 
         binding = ActivitySearchTripBinding.inflate(layoutInflater)
@@ -42,7 +47,7 @@ class SearchTripActivity : AppCompatActivity() {
         tourPackageController.getTourPackages(this) { tourPackages ->
             tourPackages.forEach {
                 trips.add(
-                    TripAdapterModel(it.id, it.name, it.description, it.image)
+                    TripAdapterModel(it.id, it.name, it.description, it.image, it.price)
                 )
             }
             tripAdapter.notifyDataSetChanged()

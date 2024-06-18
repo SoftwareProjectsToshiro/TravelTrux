@@ -134,7 +134,7 @@ class UserRepository(context: Context) {
         val response = apiService.userUpdate(id, user)
         return withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
-                Toast.makeText(context, "Email Actualizad: \n${user.email}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Email Actualizado: \n${user.email}", Toast.LENGTH_SHORT).show()
                 true
             } else {
                 val errorResponse = response.errorBody()?.string()
