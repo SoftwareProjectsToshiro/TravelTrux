@@ -48,20 +48,5 @@ class SearchTripActivity : AppCompatActivity() {
             R.drawable.el_porvenir
             )
         )
-        trips.add(
-            TripAdapterModel(4,"Huamacucho", "Situado en la sierra norte de Perú, Huamachuco es una ciudad rica en historia y arqueología. Es conocido por el sitio arqueológico de Marcahuamachuco, a menudo comparado con las ruinas de Machu Picchu por su impresionante arquitectura preinca.",
-            R.drawable.huamacucho
-            )
-        )
-        trips.add(
-            TripAdapterModel(5,"Huanchaco", "Famoso por sus caballitos de totora y como un paraíso para los surfistas, Huanchaco es un tradicional pueblo de pescadores en la costa cercana a Trujillo. Es un destino turístico popular por sus playas, su gastronomía basada en mariscos y su ambiente relajado.",
-            R.drawable.huanchaco
-            )
-        )
-        trips.add(
-            TripAdapterModel(6,"Trujillo", "Conocida como la \"Ciudad de la Eterna Primavera\", Trujillo es una ciudad vibrante en la costa norte del Perú. Es famosa por su arquitectura colonial bien preservada, su rica historia cultural y su importante rol en la independencia del Perú. Además, es un punto de acceso para explorar antiguas ruinas prehispánicas y disfrutar de festivales tradicionales como el de la Marinera.",
-            R.drawable.trujillo
-            )
-        )
     }
 }

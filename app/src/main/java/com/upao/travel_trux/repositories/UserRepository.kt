@@ -7,13 +7,11 @@ import com.upao.travel_trux.data.api.Apiclient
 import com.upao.travel_trux.data.endpoints.ApiService
 import com.upao.travel_trux.helpers.SharedPreferencesManager
 import com.upao.travel_trux.models.ApiError
+import com.upao.travel_trux.models.User
 import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
 import com.upao.travel_trux.models.responseModel.ErrorResponse
-import com.upao.travel_trux.models.responseModel.RegisterResponse
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
@@ -64,6 +62,79 @@ class UserRepository(context: Context) {
                 val saveUser = "${user.email},${user.password}"
                 SharedPreferencesManager.setUserData(context, saveUser)
                 Toast.makeText(context,"Bienvenido $email" , Toast.LENGTH_SHORT).show()
+                true
+            } else {
+                val errorResponse = response.errorBody()?.string()
+                val apiErrors = parseError(errorResponse)
+                apiErrors?.let { errors ->
+                    for (error in errors) {
+                        val capitalizedCode = error.code.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(
+                                Locale.ROOT
+                            ) else it.toString()
+                        }
+                        Toast.makeText(
+                            context,
+                            "${capitalizedCode}: ${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } ?: run {
+                    Toast.makeText(context, "Inicie Sesión o Registrese", Toast.LENGTH_SHORT).show()
+                }
+                false
+            }
+        }
+    }
+
+    suspend fun getUser(context: Context, email: String): User {
+        val apiService = Apiclient.createService(ApiService::class.java)
+        val response = apiService.userGet(email)
+        return withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                val data = response.body()
+                if(data != null) {
+                    val user = User(
+                                id=data.id,
+                                nombre=data.nombre,
+                                apellido= data.apellido,
+                                email=data.email,
+                                phone=data.phone
+                            )
+                    user
+                } else {
+                    User(0,"","","","")
+                }
+            } else {
+                val errorResponse = response.errorBody()?.string()
+                val apiErrors = parseError(errorResponse)
+                apiErrors?.let { errors ->
+                    for (error in errors) {
+                        val capitalizedCode = error.code.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(
+                                Locale.ROOT
+                            ) else it.toString()
+                        }
+                        Toast.makeText(
+                            context,
+                            "${capitalizedCode}: ${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } ?: run {
+                    Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
+                }
+                User(0,"","","","")
+            }
+        }
+    }
+
+    suspend fun updateUser(context: Context, id: Int, user:User): Boolean {
+        val apiService = Apiclient.createService(ApiService::class.java)
+        val response = apiService.userUpdate(id, user)
+        return withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                Toast.makeText(context, "Email Actualizad: \n${user.email}", Toast.LENGTH_SHORT).show()
                 true
             } else {
                 val errorResponse = response.errorBody()?.string()

@@ -1,13 +1,9 @@
 package com.upao.travel_trux.controllers
 
-import android.content.ContentValues
 import android.content.Context
-import android.util.Log
-import com.upao.travel_trux.handlerSQLite.TABLES
 import com.upao.travel_trux.models.User
 import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
-import com.upao.travel_trux.models.responseModel.RegisterResponse
 import com.upao.travel_trux.service.UserService
 
 class UserController(context: Context) {
@@ -26,9 +22,16 @@ class UserController(context: Context) {
         }
     }
 
+    fun getUser(context: Context, email: String, onResult: (User) -> Unit) {
+        userService.getUser(context, email) { user ->
+            onResult(user)
+        }
+    }
 
-    fun update(user: User): Boolean {
-        return true
+    fun updateUser(context: Context, id: Int, user: User, onResult: (Boolean) -> Unit) {
+        userService.updateUser(context, id, user) { isSuccess ->
+            onResult(isSuccess)
+        }
     }
 
     fun delete(email: String): Boolean {

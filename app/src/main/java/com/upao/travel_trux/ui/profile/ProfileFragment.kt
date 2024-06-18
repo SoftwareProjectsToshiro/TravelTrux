@@ -1,25 +1,22 @@
 package com.upao.travel_trux.ui.profile
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.activity.SystemBarStyle
-import androidx.activity.enableEdgeToEdge
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.upao.travel_trux.activities.EditarActivity
+import com.upao.travel_trux.controllers.UserController
 import com.upao.travel_trux.databinding.FragmentProfileBinding
+import com.upao.travel_trux.helpers.SharedPreferencesManager
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,14 +28,18 @@ class ProfileFragment : Fragment() {
             ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val button: Button = binding.btnEditarPerfil
-        button.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, EditarActivity::class.java)
-            startActivity(intent)
-        })
-        return root
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+       val button: Button = binding.btnEditarPerfil
+
+       button.setOnClickListener{
+           val intent = Intent(activity, EditarActivity::class.java)
+           startActivity(intent)
+       }
     }
 
     override fun onDestroyView() {

@@ -14,7 +14,6 @@ import com.upao.travel_trux.helpers.SharedPreferencesManager
 import com.upao.travel_trux.models.requestModel.LoginRequest
 
 class MenuActivity : AppCompatActivity() {
-    private val userController = UserController(this)
     private lateinit var binding: ActivityMenuBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

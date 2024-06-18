@@ -61,6 +61,16 @@
                 android:autofillHints="" />
 
             <EditText
+                android:id="@+id/etApellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:padding="10dp"
+                android:hint="@string/user_lastname"
+                android:inputType="text"
+                android:autofillHints="" />
+
+            <EditText
                 android:id="@+id/etCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
