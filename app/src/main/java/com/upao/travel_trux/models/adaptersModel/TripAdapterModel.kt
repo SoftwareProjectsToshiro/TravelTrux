@@ -2,8 +2,8 @@ package com.upao.travel_trux.models.adaptersModel
 
 class TripAdapterModel(
     var id: Int,
-    var title: String,
-    var description: String,
-    var image: Int
+    var nombre: String,
+    var descripcion: String,
+    var imagen: String
 ) {
 }

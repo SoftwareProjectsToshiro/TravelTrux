@@ -5,6 +5,8 @@ import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
 import com.upao.travel_trux.models.responseModel.LoginResponse
 import com.upao.travel_trux.models.responseModel.ApiResponse
+import com.upao.travel_trux.models.responseModel.TourPackageResponse
+import com.upao.travel_trux.models.responseModel.TourResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +28,6 @@ interface ApiService {
     @PUT("user/{id}")
     suspend fun userUpdate(@Path("id") id: Int, @Body user:User): Response<ApiResponse>
 
+    @GET("packages")
+    suspend fun packagesGet(): Response<List<TourPackageResponse>>
 }

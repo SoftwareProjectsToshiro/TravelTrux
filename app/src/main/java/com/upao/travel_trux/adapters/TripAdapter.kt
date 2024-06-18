@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.upao.travel_trux.R
 import com.upao.travel_trux.models.adaptersModel.TripAdapterModel
 
@@ -17,10 +18,7 @@ class TripAdapter(private val trips: ArrayList<TripAdapterModel>) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentTrip = trips[position]
-        holder.tripImage.setImageResource(currentTrip.image)
-        holder.tripTitle.text = currentTrip.title
-        holder.tripDescription.text = currentTrip.description
+        holder.bind(trips[position])
     }
 
     override fun getItemCount(): Int {
@@ -28,9 +26,12 @@ class TripAdapter(private val trips: ArrayList<TripAdapterModel>) : RecyclerView
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tripImage: ImageView = itemView.findViewById(R.id.iv_img)
-        val tripTitle: TextView = itemView.findViewById(R.id.title_name)
-        val tripDescription: TextView = itemView.findViewById(R.id.tv_title_description)
+        private val ivImg: ImageView = itemView.findViewById(R.id.iv_img)
+        fun bind(trip: TripAdapterModel) {
+            Picasso.get().load(trip.imagen).into(ivImg)
+            itemView.findViewById<TextView>(R.id.title_name).text = trip.nombre
+            itemView.findViewById<TextView>(R.id.tv_title_description).text = trip.descripcion
+        }
     }
 }
 
