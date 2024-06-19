@@ -1,6 +1,7 @@
 package com.upao.travel_trux.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
@@ -10,14 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.upao.travel_trux.R
 import com.upao.travel_trux.adapters.TripAdapter
 import com.upao.travel_trux.controllers.TourPackageController
-import com.upao.travel_trux.controllers.UserController
 import com.upao.travel_trux.databinding.ActivitySearchTripBinding
 import com.upao.travel_trux.models.adaptersModel.TripAdapterModel
 
 class SearchTripActivity : AppCompatActivity() {
 
-    private lateinit var tripAdapter: TripAdapter
     private lateinit var trips: ArrayList<TripAdapterModel>
+    private lateinit var tripAdapter: TripAdapter
     private lateinit var binding: ActivitySearchTripBinding
     private val tourPackageController = TourPackageController(this)
 
@@ -39,11 +39,18 @@ class SearchTripActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = tripAdapter
+
+        tripAdapter.setOnItemClickListener(object : TripAdapter.OnItemClickListener {
+            override fun onItemClick(idTrip: Int) {
+                val intent = Intent(this@SearchTripActivity, TourActivity::class.java)
+                intent.putExtra("idTrip", idTrip)
+                startActivity(intent)
+            }
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun addTrips() {
-
         tourPackageController.getTourPackages(this) { tourPackages ->
             tourPackages.forEach {
                 trips.add(

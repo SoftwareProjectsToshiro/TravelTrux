@@ -64,4 +64,8 @@
     <string name="user_logged">%1$s %2$s</string>
     <string name="money_cost">coste de paquete</string>
     <string name="amount">40.00</string>
+    <string name="incluye_transporte_y_guia">Incluye Transporte y guia</string>
+    <string name="salida_n10_30am_1_30am">Salida\n10:30am - 1:30am</string>
+    <string name="tour_from_trip">Detalles</string>
+    <string name="compra_ahora">Compra ahora</string>
 </resources>

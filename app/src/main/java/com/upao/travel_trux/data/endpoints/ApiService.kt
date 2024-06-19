@@ -30,4 +30,7 @@ interface ApiService {
 
     @GET("packages")
     suspend fun packagesGet(): Response<List<TourPackageResponse>>
+
+    @GET("packages/{id}/tour")
+    suspend fun toursGet(@Path("id") id: Int): Response<List<TourResponse>>
 }
