@@ -1,5 +1,6 @@
 package com.upao.travel_trux.data.endpoints
 
+import com.upao.travel_trux.models.Tourist
 import com.upao.travel_trux.models.User
 import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
@@ -33,4 +34,7 @@ interface ApiService {
 
     @GET("packages/{id}/tour")
     suspend fun toursGet(@Path("id") id: Int): Response<List<TourResponse>>
+
+    @POST("tourist")
+    suspend fun registerTourist(@Body tourist: Tourist): Response<ApiResponse>
 }

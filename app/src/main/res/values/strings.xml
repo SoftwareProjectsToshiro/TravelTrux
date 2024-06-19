@@ -68,4 +68,36 @@
     <string name="salida_n10_30am_1_30am">Salida\n10:30am - 1:30am</string>
     <string name="tour_from_trip">Detalles</string>
     <string name="compra_ahora">Compra ahora</string>
+    <string name="select_num_passenger">N° de pasajeros</string>
+    <string name="registro_de_turista">Registro de Turista</string>
+    <string name="registro_de_pasajero_01">Registro de Pasajero # 01</string>
+    <string name="tipo_de_documento">Tipo de Documento:</string>
+    <string name="n_mero_de_documento">Número de Documento:</string>
+    <string name="nombres">Nombres:</string>
+    <string name="apellidos_paternos">Apellidos Paternos:</string>
+    <string name="apellidos_maternos">Apellidos Maternos:</string>
+    <string name="sexo">Sexo:</string>
+    <string name="fecha">Fecha:</string>
+    <string name="tel_fono">Teléfono:</string>
+    <string-array name="numbers_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="document_type">
+        <item>DNI</item>
+        <item>Pasaporte</item>
+        <item>Carnet de Extranjería</item>
+    </string-array>
+    <string-array name="sex">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
 </resources>
