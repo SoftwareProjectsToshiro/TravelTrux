@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.upao.travel_trux.NiubizActivity
 import com.upao.travel_trux.R
 import com.upao.travel_trux.controllers.TouristController
 import com.upao.travel_trux.databinding.ActivityPassengerRegisterBinding
@@ -69,19 +70,19 @@ class PassengerRegisterActivity : AppCompatActivity() {
                 patherLastName, motherLastName, sex,
                 birthdate, phone, email)
 
-            // Validate fields
-
             touristController.registerTourist(this, tourist) { isSuccess ->
                 if (isSuccess) {
                     cleanFields()
                     if (numPassenger != null) {
-                        if (numPassenger.toInt() >= numPassangerCurrent || numPassangerCurrent != 0) {
+                        if (numPassenger.toInt() > numPassangerCurrent) {
                             numPassangerCurrent = numPassangerCurrent.plus(1)
                             binding.tvRegistroPasajeroNumero.text = "Registro de pasajero #${numPassangerCurrent}"
+                            println("numPassangerCurrent: $numPassangerCurrent")
                         } else {
-                            val intent = Intent(this, PassengerRegisterActivity::class.java)
-                            intent.putExtra("idTrip", idTrip)
-                            startActivity(intent)
+                            val i = Intent(this, NiubizActivity::class.java)
+                            i.putExtra("idTrip", idTrip)
+                            startActivity(i)
+                            finish()
                         }
                     }
                 }
