@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TravelTrux"
         tools:targetApi="31">
         <activity
-            android:name=".NiubizActivity"
+            android:name=".activities.NiubizActivity"
             android:exported="false" />
         <activity
             android:name=".activities.PassengerRegisterActivity"

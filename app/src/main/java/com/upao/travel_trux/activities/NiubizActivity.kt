@@ -1,4 +1,4 @@
-package com.upao.travel_trux
+package com.upao.travel_trux.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,7 +10,6 @@ import android.webkit.WebViewClient
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.upao.travel_trux.activities.MenuActivity
 import com.upao.travel_trux.databinding.ActivityNiubizBinding
 
 class NiubizActivity : AppCompatActivity() {

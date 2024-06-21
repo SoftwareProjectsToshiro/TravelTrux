@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.upao.travel_trux.NiubizActivity
 import com.upao.travel_trux.R
 import com.upao.travel_trux.controllers.TouristController
 import com.upao.travel_trux.databinding.ActivityPassengerRegisterBinding
