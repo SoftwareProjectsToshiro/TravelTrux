@@ -120,6 +120,7 @@ class PassengerRegisterActivity : AppCompatActivity() {
                         } else {
                             val i = Intent(this, NiubizActivity::class.java)
                             i.putExtra("idTrip", idTrip)
+                            i.putExtra("numPassenger", numPassenger)
                             startActivity(i)
                             finish()
                         }

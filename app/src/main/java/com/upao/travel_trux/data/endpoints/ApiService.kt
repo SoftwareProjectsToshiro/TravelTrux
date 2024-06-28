@@ -4,8 +4,10 @@ import com.upao.travel_trux.models.requestModel.TouristRequest
 import com.upao.travel_trux.models.User
 import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
+import com.upao.travel_trux.models.requestModel.ReservationRequest
 import com.upao.travel_trux.models.responseModel.LoginResponse
 import com.upao.travel_trux.models.responseModel.ApiResponse
+import com.upao.travel_trux.models.responseModel.ComentResponse
 import com.upao.travel_trux.models.responseModel.TourPackageResponse
 import com.upao.travel_trux.models.responseModel.TourResponse
 import com.upao.travel_trux.models.responseModel.TouristResponse
@@ -43,7 +45,7 @@ interface ApiService {
     suspend fun getTourist(@Path("doc") doc: String): Response<TouristResponse>
 
     @POST("reservations")
-    suspend fun reservation(@Body reservation: TourResponse): Response<ApiResponse>
+    suspend fun createReservation(@Body reservation: ReservationRequest): Response<ApiResponse>
 
     @GET("reservations/{id}")
     suspend fun reservationGet(@Path("id") id: Int): Response<TourResponse>
@@ -51,6 +53,6 @@ interface ApiService {
     @POST("comments")
     suspend fun comment(@Body comment: TourResponse): Response<ApiResponse>
 
-    @GET("comments/{tourPackageId}")
-    suspend fun commentGet(@Path("id") id: Int): Response<TourResponse>
+    @GET("comments/{user_id}")
+    suspend fun getComents(@Path("user_id") id: Int): Response<List<ComentResponse>>
 }
