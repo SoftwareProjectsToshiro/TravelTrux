@@ -79,6 +79,8 @@
     <string name="sexo">Sexo:</string>
     <string name="fecha">Fecha:</string>
     <string name="tel_fono">Teléfono:</string>
+    <string name="edad">Edad</string>
+    <string name="seleccionar_fecha">Seleccionar Fecha</string>
     <string-array name="numbers_array">
         <item>1</item>
         <item>2</item>
@@ -94,7 +96,7 @@
     <string-array name="document_type">
         <item>DNI</item>
         <item>Pasaporte</item>
-        <item>Carnet de Extranjería</item>
+        <item>Carnet de Extranjeria</item>
     </string-array>
     <string-array name="sex">
         <item>Masculino</item>

@@ -98,12 +98,26 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/selectedDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fecha"/>
 
+    <Button
+        android:id="@+id/et_fecha_salida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/seleccionar_fecha"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edad"/>
+
     <EditText
-        android:id="@+id/et_fecha"
+        android:id="@+id/et_fecha_nacimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
@@ -145,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/next_button"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/black"
             android:layout_gravity="center" />
     </LinearLayout>
 

@@ -6,19 +6,18 @@ import com.google.gson.Gson
 import com.upao.travel_trux.data.api.Apiclient
 import com.upao.travel_trux.data.endpoints.ApiService
 import com.upao.travel_trux.models.ApiError
-import com.upao.travel_trux.models.Tourist
+import com.upao.travel_trux.models.requestModel.TouristRequest
 import com.upao.travel_trux.models.responseModel.ErrorResponse
+import com.upao.travel_trux.models.responseModel.TouristResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class TouristRepository(context: Context) {
 
-    suspend fun registerTourist(context: Context, tourist: Tourist): Boolean {
+    suspend fun registerTourist(context: Context, touristRequest: TouristRequest): Boolean {
         val apiService = Apiclient.createService(ApiService::class.java)
-        println(tourist)
-        val response = apiService.registerTourist(tourist)
-        println(response.message())
+        val response = apiService.registerTourist(touristRequest)
         return withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val registerResponse = response.body()
@@ -47,6 +46,25 @@ class TouristRepository(context: Context) {
             }
         }
     }
+
+    suspend fun getTourist(context: Context, numDocument: String): TouristResponse {
+        val apiService = Apiclient.createService(ApiService::class.java)
+        val response = apiService.getTourist(numDocument)
+        return withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                val data = response.body()
+                if(data != null) {
+                    data
+                } else {
+                    Toast.makeText(context, "Error al obtener turista", Toast.LENGTH_SHORT).show()
+                    TouristResponse(0,"","","","","","","","","")
+                }
+            } else {
+                TouristResponse(0,"","","","","","","","","")
+            }
+        }
+    }
+
     private fun parseError(errorBody: String?): List<ApiError>? {
         return try {
             errorBody?.let {
