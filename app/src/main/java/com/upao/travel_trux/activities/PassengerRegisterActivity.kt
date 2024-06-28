@@ -135,6 +135,7 @@ class PassengerRegisterActivity : AppCompatActivity() {
         binding.etNombres.text.clear()
         binding.etApellidoPaterno.text.clear()
         binding.etApellidoMaterno.text.clear()
+        binding.selectedDateTextView.text = R.string.fecha.toString()
         binding.etFechaNacimiento.text.clear()
         binding.etTelefono.text.clear()
         binding.etEmail.text.clear()

@@ -24,10 +24,11 @@ class NiubizActivity : AppCompatActivity() {
         binding = ActivityNiubizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val idPedido = intent.getIntExtra("idTrip",0)
         binding.webview.settings.javaScriptEnabled = true
         binding.webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
-        binding.webview.loadUrl("https://api-trux-travel.strategyec.com/public_html/niubiz/1000234")
+        binding.webview.loadUrl("https://api-trux-travel.strategyec.com/public_html/niubiz/$idPedido")
 
         binding.webview.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
