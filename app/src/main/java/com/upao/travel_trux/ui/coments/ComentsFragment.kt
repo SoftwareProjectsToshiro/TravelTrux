@@ -14,6 +14,7 @@ import com.upao.travel_trux.controllers.UserController
 import com.upao.travel_trux.databinding.FragmentComentsBinding
 import com.upao.travel_trux.helpers.SharedPreferencesManager
 import com.upao.travel_trux.models.adaptersModel.ComentsAdapterModel
+import com.upao.travel_trux.models.requestModel.ComentRequest
 
 class ComentsFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class ComentsFragment : Fragment() {
     private lateinit var cards: ArrayList<ComentsAdapterModel>
     private lateinit var comentsController: ComentsController
     private lateinit var userController: UserController
-    private var id: Int = 0
+    private var idTrip: Int = 0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,15 +46,22 @@ class ComentsFragment : Fragment() {
         userController = UserController(requireContext())
 
         cards = ArrayList()
-        comentsAdapter = ComentsAdapter(cards)
 
         val getUser = SharedPreferencesManager.getUserData(requireContext())
         if(getUser != null) {
             val user = getUser.split(",")
             val email = user[0]
-
             userController.getUser(requireContext(), email) { user ->
                 uploadCards(user.id)
+            }
+        }
+
+        comentsAdapter = ComentsAdapter(cards) {
+            val commentRequest = ComentRequest(idTrip, it.id, it.content, it.title, it.rating)
+            println(commentRequest)
+            comentsController.updateComent(requireContext(), commentRequest) {
+                cards.clear()
+                uploadCards(it.id)
             }
         }
 
@@ -71,10 +79,12 @@ class ComentsFragment : Fragment() {
     private fun uploadCards(id: Int) {
         comentsController.getComents(requireContext(), id) { coments ->
             coments.forEach {
-                cards.add(
-                    ComentsAdapterModel(it.id, it.titulo, it.descripcion, it.rating)
-                )
+                idTrip = it.tourPackageId
             }
+            cards.clear()
+            cards.addAll(coments.map {
+                ComentsAdapterModel(it.id, it.titulo, it.descripcion, it.rating)
+            })
             comentsAdapter.notifyDataSetChanged()
         }
     }

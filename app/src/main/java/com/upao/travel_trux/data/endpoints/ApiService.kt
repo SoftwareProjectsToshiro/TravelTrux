@@ -2,6 +2,7 @@ package com.upao.travel_trux.data.endpoints
 
 import com.upao.travel_trux.models.requestModel.TouristRequest
 import com.upao.travel_trux.models.User
+import com.upao.travel_trux.models.requestModel.ComentRequest
 import com.upao.travel_trux.models.requestModel.LoginRequest
 import com.upao.travel_trux.models.requestModel.RegisterRequest
 import com.upao.travel_trux.models.requestModel.ReservationRequest
@@ -51,7 +52,7 @@ interface ApiService {
     suspend fun reservationGet(@Path("id") id: Int): Response<TourResponse>
 
     @POST("comments")
-    suspend fun comment(@Body comment: TourResponse): Response<ApiResponse>
+    suspend fun comment(@Body comment: ComentRequest): Response<ApiResponse>
 
     @GET("comments/{user_id}")
     suspend fun getComents(@Path("user_id") id: Int): Response<List<ComentResponse>>

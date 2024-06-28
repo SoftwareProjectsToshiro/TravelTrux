@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp"
+            android:gravity="center"
             android:layout_gravity="center">
             <TextView
                 android:id="@+id/coment_title"
@@ -41,6 +42,17 @@
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
+            <EditText
+                style="@style/EditTextSignIn"
+                android:id="@+id/coment_no_coment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="@string/no_coment"
+                android:inputType="text"
+                tools:ignore="LabelFor"
+                android:autofillHints="" />
+
             <RatingBar
                 android:id="@+id/coment_rating"
                 android:layout_width="285dp"
@@ -54,6 +66,12 @@
                 android:theme="@style/RatioBarStarts">
 
             </RatingBar>
+            <Button
+                android:id="@+id/coment_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/enviar_comentario" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

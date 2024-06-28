@@ -1,6 +1,7 @@
 package com.upao.travel_trux.service
 
 import android.content.Context
+import com.upao.travel_trux.models.requestModel.ComentRequest
 import com.upao.travel_trux.models.responseModel.ComentResponse
 import com.upao.travel_trux.repositories.ComentsRepository
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,15 @@ class ComentsService(context: Context) {
             val coments = comentsRepository.getComents(context, id)
             withContext(Dispatchers.Main) {
                 onResult(coments)
+            }
+        }
+    }
+
+    fun updateComent(context: Context, coment: ComentRequest, onResult: () -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            comentsRepository.updateComent(context, coment)
+            withContext(Dispatchers.Main) {
+                onResult()
             }
         }
     }
