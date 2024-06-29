@@ -38,4 +38,10 @@ object SharedPreferencesManager {
     fun getToken(context: Context): String? {
         return getPreferences(context).getString(TOKEN, null)
     }
+
+    fun removeToken(context: Context) {
+        val editor = getPreferences(context).edit()
+        editor.remove(TOKEN)
+        editor.apply()
+    }
 }

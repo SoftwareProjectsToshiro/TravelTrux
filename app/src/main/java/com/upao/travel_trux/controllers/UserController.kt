@@ -38,8 +38,10 @@ class UserController(context: Context) {
         return true
     }
 
-    fun logout(): Boolean {
-        return true
+    fun logout(context: Context, onResult: (Boolean) -> Unit) {
+        userService.logout(context) { isSuccess ->
+            onResult(isSuccess)
+        }
     }
 
     companion object {

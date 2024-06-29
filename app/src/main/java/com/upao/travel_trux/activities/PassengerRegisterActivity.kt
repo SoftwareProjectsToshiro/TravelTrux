@@ -7,9 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
@@ -21,15 +23,23 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Locale
+import java.util.regex.Pattern
 
 class PassengerRegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPassengerRegisterBinding
     private lateinit var selectedDateTextView: TextView
+    private lateinit var selectedDateBirthDayTextView: TextView
+    private lateinit var edadTextView: TextView
     private lateinit var selectDateButton: Button
+    private lateinit var selectDateBirthDayButton: Button
+    private lateinit var etFechaNacimiento: TextView
     private val touristController = TouristController(this)
     private var userEmail = ""
+    private var dateBirth = ""
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +50,20 @@ class PassengerRegisterActivity : AppCompatActivity() {
         selectedDateTextView = findViewById(R.id.selectedDateTextView)
         selectDateButton = findViewById(R.id.et_fecha_salida)
 
+        selectedDateBirthDayTextView = findViewById(R.id.selectedDateBirthDayTextView)
+        selectDateBirthDayButton = findViewById(R.id.btn_fecha_nacimiento)
+        etFechaNacimiento = findViewById(R.id.et_fecha_nacimiento)
+        edadTextView = findViewById(R.id.edadTextView)
+
+        etFechaNacimiento.visibility = View.GONE
+        edadTextView.visibility = View.GONE
+
         selectDateButton.setOnClickListener {
             showDatePickerDialog()
+        }
+
+        selectDateBirthDayButton.setOnClickListener {
+            showPastDatePickerDialog()
         }
 
         val idTrip = intent.getIntExtra("idTrip", 0)
@@ -79,17 +101,17 @@ class PassengerRegisterActivity : AppCompatActivity() {
 
         binding.etNumeroDocumento.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No se necesita implementar
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No se necesita implementar
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun afterTextChanged(s: Editable?) {
                 if (s != null && s.length >= 8) {
-                    llamarControlador()
+                    getTouristData()
+                } else {
+                    cleanFieldsWithNumDocument()
                 }
             }
         })
@@ -102,13 +124,43 @@ class PassengerRegisterActivity : AppCompatActivity() {
             val sex = spinnerGender.selectedItem.toString()
             val typeDocument = spinnerTypeDocument.selectedItem.toString()
             val dayOut = selectedDateTextView.text.toString()
-            val birthdate = binding.etFechaNacimiento.text.toString()
+            var birthdate = if(selectedDateBirthDayTextView.visibility == View.VISIBLE
+                && selectDateBirthDayButton.visibility == View.VISIBLE) {
+                selectedDateBirthDayTextView.text.toString()
+            } else {
+                binding.etFechaNacimiento.text.toString()
+            }
+
             val phone = binding.etTelefono.text.toString()
             val email = binding.etEmail.text.toString()
+
+            if(typeDocument == "DNI") {
+                if(numDocument.length != 8) {
+                    binding.etNumeroDocumento.error = "Número de documento no válido."
+                    Toast.makeText(this, "Número de documento no válido. Debe tener 8 caracteres.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
+
+            if(!isValidDateDateTimeFormatter(birthdate)){
+                birthdate = dateBirth
+            }
+
+            if (!isPhoneValid(phone)) {
+                binding.etTelefono.error = "Número de teléfono no válido."
+                Toast.makeText(this, "Número de teléfono no válido. Debe tener 9 caracteres y comenzar con un 9.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!isEmailValid(email)) {
+                binding.etEmail.error = "Correo electrónico no válido"
+                Toast.makeText(this, "Correo electrónico no válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val touristRequest = TouristRequest(idTrip, userEmail, numDocument, name,
                 patherLastName, motherLastName, sex, typeDocument,
                 dayOut, birthdate, phone, email)
-
             touristController.registerTourist(this, touristRequest) { isSuccess ->
                 if (isSuccess) {
                     cleanFields()
@@ -116,7 +168,6 @@ class PassengerRegisterActivity : AppCompatActivity() {
                         if (numPassenger.toInt() > numPassangerCurrent) {
                             numPassangerCurrent = numPassangerCurrent.plus(1)
                             binding.tvRegistroPasajeroNumero.text = "Registro de pasajero #${numPassangerCurrent}"
-                            println("numPassangerCurrent: $numPassangerCurrent")
                         } else {
                             val i = Intent(this, NiubizActivity::class.java)
                             i.putExtra("idTrip", idTrip)
@@ -131,21 +182,42 @@ class PassengerRegisterActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun cleanFields() {
         binding.etNumeroDocumento.text.clear()
         binding.etNombres.text.clear()
         binding.etApellidoPaterno.text.clear()
         binding.etApellidoMaterno.text.clear()
-        binding.selectedDateTextView.text = R.string.fecha.toString()
+        binding.selectedDateTextView.text = "Fecha de salida: "
+        binding.etFechaNacimiento.text.clear()
+        binding.etTelefono.text.clear()
+        binding.etEmail.text.clear()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun cleanFieldsWithNumDocument() {
+        binding.etNombres.text.clear()
+        binding.etApellidoPaterno.text.clear()
+        binding.etApellidoMaterno.text.clear()
+        binding.selectedDateTextView.text = "Fecha de salida: "
+        binding.selectedDateBirthDayTextView.text = "Fecha de nacimiento: "
         binding.etFechaNacimiento.text.clear()
         binding.etTelefono.text.clear()
         binding.etEmail.text.clear()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun llamarControlador() {
+    private fun getTouristData() {
         touristController.getTourist(this, binding.etNumeroDocumento.text.toString()) { tourist ->
             if(tourist.email != "") {
+
+                etFechaNacimiento.visibility = View.VISIBLE
+                edadTextView.visibility = View.VISIBLE
+                selectedDateBirthDayTextView.visibility = View.GONE
+                selectDateBirthDayButton.visibility = View.GONE
+
+                dateBirth = tourist.fechaNacimiento
+
                 binding.etNombres.setText(tourist.nombre)
                 binding.etApellidoPaterno.setText(tourist.apellidoPaterno)
                 binding.etApellidoMaterno.setText(tourist.apellidoMaterno)
@@ -162,6 +234,12 @@ class PassengerRegisterActivity : AppCompatActivity() {
                 binding.etFechaNacimiento.setText(calculateDateDifference(tourist.fechaNacimiento))
                 binding.etTelefono.setText(tourist.telefono)
                 binding.etEmail.setText(tourist.email)
+            } else {
+                cleanFieldsWithNumDocument()
+                etFechaNacimiento.visibility = View.GONE
+                edadTextView.visibility = View.GONE
+                selectedDateBirthDayTextView.visibility = View.VISIBLE
+                selectDateBirthDayButton.visibility = View.VISIBLE
             }
         }
     }
@@ -196,4 +274,47 @@ class PassengerRegisterActivity : AppCompatActivity() {
 
         datePickerDialog.show()
     }
+
+    private fun showPastDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedDate = Calendar.getInstance()
+            selectedDate.set(selectedYear, selectedMonth, selectedDay)
+
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val dateString = dateFormat.format(selectedDate.time)
+
+            binding.selectedDateBirthDayTextView.text = dateString
+        }, year, month, day)
+
+        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+
+        datePickerDialog.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun isValidDateDateTimeFormatter(date: String): Boolean {
+        return try {
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            LocalDate.parse(date, formatter)
+            true
+        } catch (e: DateTimeParseException) {
+            false
+        }
+    }
+
+    private fun isPhoneValid(phone: String): Boolean {
+        val phonePattern = "^9\\d{8}\$"
+        return Pattern.matches(phonePattern, phone)
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return Pattern.matches(emailPattern, email)
+    }
+
 }

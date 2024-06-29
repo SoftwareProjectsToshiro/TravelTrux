@@ -77,12 +77,14 @@
     <string name="apellidos_paternos">Apellidos Paternos:</string>
     <string name="apellidos_maternos">Apellidos Maternos:</string>
     <string name="sexo">Sexo:</string>
-    <string name="fecha">Fecha:</string>
+    <string name="fecha">Fecha de salida: </string>
     <string name="tel_fono">Teléfono:</string>
     <string name="edad">Edad</string>
     <string name="seleccionar_fecha">Seleccionar Fecha</string>
     <string name="no_coment">Sin comentario</string>
     <string name="enviar_comentario">Enviar Comentario</string>
+    <string name="menu_sign_out">Cerrar sesión</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento</string>
     <string-array name="numbers_array">
         <item>1</item>
         <item>2</item>

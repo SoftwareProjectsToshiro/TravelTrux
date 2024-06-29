@@ -112,6 +112,7 @@
         android:layout_gravity="center" />
 
     <TextView
+        android:id="@+id/edadTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edad"/>
@@ -123,6 +124,20 @@
         android:inputType="date"
         android:autofillHints="Fecha"
         tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/selectedDateBirthDayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha_nacimiento"/>
+
+    <Button
+        android:id="@+id/btn_fecha_nacimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="@string/seleccionar_fecha"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"

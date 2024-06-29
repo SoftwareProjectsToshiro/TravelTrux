@@ -160,6 +160,15 @@ class UserRepository(context: Context) {
         }
     }
 
+    suspend fun logout(context: Context): Boolean {
+        return withContext(Dispatchers.Main) {
+            SharedPreferencesManager.removeUserData(context)
+            SharedPreferencesManager.removeToken(context)
+            println("Sign out")
+            true
+        }
+    }
+
     private fun parseError(errorBody: String?): List<ApiError>? {
         return try {
             errorBody?.let {

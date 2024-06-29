@@ -49,4 +49,13 @@ class UserService(context: Context) {
             }
         }
     }
+
+    fun logout(context: Context, onResult: (Boolean) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val isSuccess = userRepository.logout(context)
+            withContext(Dispatchers.Main) {
+                onResult(isSuccess)
+            }
+        }
+    }
 }
