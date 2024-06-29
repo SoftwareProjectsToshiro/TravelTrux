@@ -28,13 +28,45 @@ class ComentsRepository(context: Context) {
 
     }
 
-    suspend fun updateComent(context: Context, coment: ComentRequest): Boolean {
+    suspend fun createComent(context: Context, coment: ComentRequest): Boolean {
         val apiService = Apiclient.createService(ApiService::class.java)
         val response = apiService.comment(coment)
         return withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val json = response.body()?.msg
                 Log.d("JSON Response", json ?: "No JSON received")
+                val commentResponse = response.body()
+                Toast.makeText(context, commentResponse?.msg, Toast.LENGTH_SHORT).show()
+                true
+            } else {
+                val errorResponse = response.errorBody()?.string()
+                val apiErrors = parseError(errorResponse)
+                apiErrors?.let { errors ->
+                    for (error in errors) {
+                        val capitalizedCode = error.code.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(
+                                Locale.ROOT
+                            ) else it.toString()
+                        }
+                        Toast.makeText(
+                            context,
+                            "${capitalizedCode}: ${error.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } ?: run {
+                    Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
+                }
+                false
+            }
+        }
+    }
+
+    suspend fun updateComent(context: Context, coment: ComentRequest): Boolean {
+        val apiService = Apiclient.createService(ApiService::class.java)
+        val response = apiService.updateComent(coment.user_id, coment)
+        return withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
                 val commentResponse = response.body()
                 Toast.makeText(context, commentResponse?.msg, Toast.LENGTH_SHORT).show()
                 true

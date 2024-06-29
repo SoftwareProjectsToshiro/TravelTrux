@@ -24,6 +24,7 @@ class ComentsFragment : Fragment() {
     private lateinit var comentsController: ComentsController
     private lateinit var userController: UserController
     private var idTrip: Int = 0
+    private var idUSer: Int = 0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -52,16 +53,16 @@ class ComentsFragment : Fragment() {
             val user = getUser.split(",")
             val email = user[0]
             userController.getUser(requireContext(), email) { user ->
-                uploadCards(user.id)
+                idUSer = user.id
+                uploadCards(idUSer)
             }
         }
 
         comentsAdapter = ComentsAdapter(cards) {
-            val commentRequest = ComentRequest(idTrip, it.id, it.content, it.title, it.rating)
-            println(commentRequest)
+            val commentRequest = ComentRequest(idTrip, idUSer, it.content_, it.title, it.rating)
             comentsController.updateComent(requireContext(), commentRequest) {
                 cards.clear()
-                uploadCards(it.id)
+                uploadCards(idUSer)
             }
         }
 
@@ -79,11 +80,12 @@ class ComentsFragment : Fragment() {
     private fun uploadCards(id: Int) {
         comentsController.getComents(requireContext(), id) { coments ->
             coments.forEach {
-                idTrip = it.tourPackageId
+                idTrip = it.id
             }
             cards.clear()
             cards.addAll(coments.map {
-                ComentsAdapterModel(it.id, it.titulo, it.descripcion, it.rating)
+                println(it)
+                ComentsAdapterModel(it.tourPackageId, it.titulo, it.descripcion, it.rating)
             })
             comentsAdapter.notifyDataSetChanged()
         }

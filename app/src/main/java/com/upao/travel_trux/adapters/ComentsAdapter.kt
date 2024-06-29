@@ -23,23 +23,25 @@ class ComentsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = coments[position]
 
-        if (item.content.isEmpty()) {
+        holder.comentTitle.text = item.title
+
+        if (item.content_.isEmpty()) {
             holder.comentEditText.visibility = View.VISIBLE
             holder.comentDescription.visibility = View.GONE
-            holder.comentTitle.visibility = View.VISIBLE
         } else {
             holder.comentEditText.visibility = View.GONE
-            holder.comentTitle.visibility = View.VISIBLE
-            holder.comentTitle.text = item.content
+            holder.comentDescription.visibility = View.VISIBLE
+            holder.comentButton.visibility = View.GONE
         }
 
-        holder.comentDescription.text = item.content
+        holder.comentDescription.text = item.content_
         holder.comentRating.rating = item.rating.toFloat()
 
         holder.comentRating.setOnRatingBarChangeListener { _, rating, _ ->
             item.rating = rating.toInt()
         }
         holder.comentButton.setOnClickListener {
+            item.content_ = holder.comentEditText.text.toString()
             onButtonClicked(item)
         }
 

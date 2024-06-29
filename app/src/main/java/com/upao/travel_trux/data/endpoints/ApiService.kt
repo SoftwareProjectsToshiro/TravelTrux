@@ -56,4 +56,7 @@ interface ApiService {
 
     @GET("comments/{user_id}")
     suspend fun getComents(@Path("user_id") id: Int): Response<List<ComentResponse>>
+
+    @PUT("comments/{id}")
+    suspend fun updateComent(@Path("id") id: Int, @Body comment: ComentRequest): Response<ApiResponse>
 }
