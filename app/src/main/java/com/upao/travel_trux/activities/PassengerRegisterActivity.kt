@@ -172,6 +172,7 @@ class PassengerRegisterActivity : AppCompatActivity() {
                             val i = Intent(this, NiubizActivity::class.java)
                             i.putExtra("idTrip", idTrip)
                             i.putExtra("numPassenger", numPassenger)
+                            i.putExtra("fechaSalida", dayOut)
                             startActivity(i)
                             finish()
                         }

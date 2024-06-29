@@ -33,8 +33,6 @@ class ComentsRepository(context: Context) {
         val response = apiService.comment(coment)
         return withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
-                val json = response.body()?.msg
-                Log.d("JSON Response", json ?: "No JSON received")
                 val commentResponse = response.body()
                 Toast.makeText(context, commentResponse?.msg, Toast.LENGTH_SHORT).show()
                 true

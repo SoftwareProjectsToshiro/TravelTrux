@@ -38,6 +38,7 @@ class NiubizActivity : AppCompatActivity() {
         val idPedido = intent.getIntExtra("idTrip",0)
         val numPassenger = intent.getStringExtra("numPassenger")
         val numPassengerInt = numPassenger!!.toInt()
+        val dayOut = intent.getStringExtra("dayOut")
         binding.webview.settings.javaScriptEnabled = true
         binding.webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
@@ -54,8 +55,7 @@ class NiubizActivity : AppCompatActivity() {
                         val email = user[0]
                         userController.getUser(this@NiubizActivity, email) { user ->
 
-                            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                            val reservation = ReservationRequest(user.id, idPedido, LocalDate.now().format(formatter), numPassengerInt,"Niubiz", "Paid","Reservado")
+                            val reservation = ReservationRequest(user.id, idPedido, dayOut.toString(), numPassengerInt,"Niubiz", "Paid","Reservado")
 
                             reservationController.createReservation(this@NiubizActivity, reservation) { isSuccess ->
                                 if(isSuccess) {
