@@ -37,8 +37,14 @@ class ComentsAdapter(
         holder.comentDescription.text = item.content_
         holder.comentRating.rating = item.rating.toFloat()
 
-        holder.comentRating.setOnRatingBarChangeListener { _, rating, _ ->
-            item.rating = rating.toInt()
+        holder.comentRating.setIsIndicator(item.rating != 0)
+
+        if (!holder.comentRating.isIndicator) {
+            holder.comentRating.setOnRatingBarChangeListener { _, rating, _ ->
+                item.rating = rating.toInt()
+            }
+        } else {
+            holder.comentRating.onRatingBarChangeListener = null
         }
         holder.comentButton.setOnClickListener {
             item.content_ = holder.comentEditText.text.toString()

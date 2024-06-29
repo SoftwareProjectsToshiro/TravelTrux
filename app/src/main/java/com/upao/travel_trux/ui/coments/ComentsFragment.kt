@@ -84,7 +84,6 @@ class ComentsFragment : Fragment() {
             }
             cards.clear()
             cards.addAll(coments.map {
-                println(it)
                 ComentsAdapterModel(it.tourPackageId, it.titulo, it.descripcion, it.rating)
             })
             comentsAdapter.notifyDataSetChanged()

@@ -59,13 +59,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:isIndicator="true"
+                android:isIndicator="false"
                 android:numStars="5"
                 android:paddingTop="10dp"
                 android:rating="4.8"
-                android:theme="@style/RatioBarStarts">
+                android:stepSize="1.0"
+                android:theme="@style/RatioBarStarts"/>
 
-            </RatingBar>
             <Button
                 android:id="@+id/coment_button"
                 android:layout_width="wrap_content"

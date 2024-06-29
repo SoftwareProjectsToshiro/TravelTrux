@@ -64,32 +64,37 @@ class ComentsRepository(context: Context) {
 
     suspend fun updateComent(context: Context, coment: ComentRequest): Boolean {
         val apiService = Apiclient.createService(ApiService::class.java)
-        val response = apiService.updateComent(coment.user_id, coment)
         return withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                val commentResponse = response.body()
-                Toast.makeText(context, commentResponse?.msg, Toast.LENGTH_SHORT).show()
-                true
-            } else {
-                val errorResponse = response.errorBody()?.string()
-                val apiErrors = parseError(errorResponse)
-                apiErrors?.let { errors ->
-                    for (error in errors) {
-                        val capitalizedCode = error.code.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(
-                                Locale.ROOT
-                            ) else it.toString()
-                        }
-                        Toast.makeText(
-                            context,
-                            "${capitalizedCode}: ${error.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                } ?: run {
-                    Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
-                }
+            if(coment.rating == 0 || coment.content_.isEmpty()){
+                Toast.makeText(context, "Valore y deje su comentario", Toast.LENGTH_SHORT).show()
                 false
+            } else {
+                val response = apiService.updateComent(coment.user_id, coment)
+                if (response.isSuccessful) {
+                    val commentResponse = response.body()
+                    Toast.makeText(context, commentResponse?.msg, Toast.LENGTH_SHORT).show()
+                    true
+                } else {
+                    val errorResponse = response.errorBody()?.string()
+                    val apiErrors = parseError(errorResponse)
+                    apiErrors?.let { errors ->
+                        for (error in errors) {
+                            val capitalizedCode = error.code.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(
+                                    Locale.ROOT
+                                ) else it.toString()
+                            }
+                            Toast.makeText(
+                                context,
+                                "${capitalizedCode}: ${error.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } ?: run {
+                        Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
+                    }
+                    false
+                }
             }
         }
     }
