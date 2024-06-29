@@ -12,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -80,14 +81,21 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_profile)
         return when (item.itemId) {
-            R.id.sign_out -> {
-                handleSignOut()
+            R.id.nav_profile -> {
+                handleFragment(navController, item)
                 true
             }
-            R.id.nav_profile,
+            R.id.nav_search_trips-> {
+                viewSearchTrips()
+                true
+            }
+            R.id.nav_us,
             R.id.nav_coments -> {
-                navController.navigate(item.itemId)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                handleFragment(navController, item)
+                true
+            }
+            R.id.sign_out -> {
+                handleSignOut()
                 true
             }
             else -> {
@@ -96,6 +104,11 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 true
             }
         }
+    }
+
+    private fun handleFragment(navController: NavController, item: MenuItem) {
+        navController.navigate(item.itemId)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
     private fun handleSignOut() {
@@ -110,5 +123,10 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 Toast.makeText(this, "Error al cerrar sesión", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun viewSearchTrips() {
+        val intent = Intent(this, SearchTripActivity::class.java)
+        startActivity(intent)
     }
 }
