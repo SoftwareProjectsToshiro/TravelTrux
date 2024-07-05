@@ -9,6 +9,7 @@ import com.upao.travel_trux.models.requestModel.ReservationRequest
 import com.upao.travel_trux.models.responseModel.LoginResponse
 import com.upao.travel_trux.models.responseModel.ApiResponse
 import com.upao.travel_trux.models.responseModel.ComentResponse
+import com.upao.travel_trux.models.responseModel.ReservationResponseId
 import com.upao.travel_trux.models.responseModel.TourPackageResponse
 import com.upao.travel_trux.models.responseModel.TourResponse
 import com.upao.travel_trux.models.responseModel.TouristResponse
@@ -46,7 +47,7 @@ interface ApiService {
     suspend fun getTourist(@Path("doc") doc: String): Response<TouristResponse>
 
     @POST("reservations")
-    suspend fun createReservation(@Body reservation: ReservationRequest): Response<ApiResponse>
+    suspend fun createReservation(@Body reservation: ReservationRequest): Response<ReservationResponseId>
 
     @GET("reservations/{id}")
     suspend fun reservationGet(@Path("id") id: Int): Response<TourResponse>

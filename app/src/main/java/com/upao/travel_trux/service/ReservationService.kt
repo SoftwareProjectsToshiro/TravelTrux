@@ -11,11 +11,11 @@ import kotlinx.coroutines.withContext
 class ReservationService(context: Context) {
     private val reservationRepository = ReservationRepository(context)
 
-    fun createReservation(context: Context, reservationRequest: ReservationRequest, onResult: (Boolean) -> Unit) {
+    fun createReservation(context: Context, reservationRequest: ReservationRequest, onResult: (String) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            val isSuccess = reservationRepository.createReservation(context, reservationRequest)
+            val reservationID = reservationRepository.createReservation(context, reservationRequest)
             withContext(Dispatchers.Main) {
-                onResult(isSuccess)
+                onResult(reservationID)
             }
         }
     }

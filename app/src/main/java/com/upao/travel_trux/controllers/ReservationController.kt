@@ -7,9 +7,9 @@ import com.upao.travel_trux.service.ReservationService
 class ReservationController(context: Context) {
     private val reservationService = ReservationService(context)
 
-    fun createReservation(context: Context, reservation: ReservationRequest, onResult: (Boolean) -> Unit) {
-        reservationService.createReservation(context, reservation) { isSuccess ->
-            onResult(isSuccess)
+    fun createReservation(context: Context, reservation: ReservationRequest, onResult: (String) -> Unit) {
+        reservationService.createReservation(context, reservation) { reservationID ->
+            onResult(reservationID)
         }
     }
 }

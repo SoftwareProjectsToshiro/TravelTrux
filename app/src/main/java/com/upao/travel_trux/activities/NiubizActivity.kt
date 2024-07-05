@@ -23,8 +23,7 @@ import java.time.format.DateTimeFormatter
 
 class NiubizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNiubizBinding
-    private val userController = UserController(this)
-    private val reservationController = ReservationController(this)
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,34 +35,19 @@ class NiubizActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val idPedido = intent.getIntExtra("idTrip",0)
-        val numPassenger = intent.getStringExtra("numPassenger")
-        val numPassengerInt = numPassenger!!.toInt()
-        val dayOut = intent.getStringExtra("dayOut")
+        val userId = intent.getIntExtra("userId",0)
+        val reservationId = intent.getStringExtra("reservation_id")
+
         binding.webview.settings.javaScriptEnabled = true
         binding.webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 
-        binding.webview.loadUrl("https://api-trux-travel.strategyec.com/public_html/niubiz/$idPedido")
+        binding.webview.loadUrl("https://api-trux-travel.strategyec.com/public_html/niubiz/$reservationId")
 
         binding.webview.webViewClient = object : WebViewClient() {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 if(url == "https://api-trux-travel.strategyec.com/public_html/payment-success") {
-                    val getUser = SharedPreferencesManager.getUserData(this@NiubizActivity)
-                    if(getUser != null) {
-                        val user = getUser.split(",")
-                        val email = user[0]
-                        userController.getUser(this@NiubizActivity, email) { user ->
-
-                            val reservation = ReservationRequest(user.id, idPedido, dayOut.toString(), numPassengerInt,"Niubiz", "Paid","Reservado")
-
-                            reservationController.createReservation(this@NiubizActivity, reservation) { isSuccess ->
-                                if(isSuccess) {
-                                    Toast.makeText(this@NiubizActivity, "Recuerde revisar el estado de tu paquete", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                    }
                     val intent = Intent(this@NiubizActivity, MenuActivity::class.java)
                     startActivity(intent)
                     finish()

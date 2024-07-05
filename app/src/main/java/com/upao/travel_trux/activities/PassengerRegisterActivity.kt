@@ -15,9 +15,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.upao.travel_trux.R
+import com.upao.travel_trux.controllers.ReservationController
 import com.upao.travel_trux.controllers.TouristController
+import com.upao.travel_trux.controllers.UserController
 import com.upao.travel_trux.databinding.ActivityPassengerRegisterBinding
 import com.upao.travel_trux.helpers.SharedPreferencesManager
+import com.upao.travel_trux.models.requestModel.ReservationRequest
 import com.upao.travel_trux.models.requestModel.TouristRequest
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -37,8 +40,12 @@ class PassengerRegisterActivity : AppCompatActivity() {
     private lateinit var selectDateBirthDayButton: Button
     private lateinit var etFechaNacimiento: TextView
     private val touristController = TouristController(this)
+    private val userController = UserController(this)
+    private val reservationController = ReservationController(this)
     private var userEmail = ""
     private var dateBirth = ""
+    private var userId: Int = 0
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +81,9 @@ class PassengerRegisterActivity : AppCompatActivity() {
         val user = getUser?.split(",")
         if(user != null) {
             userEmail = user[0]
+            userController.getUser(this, userEmail) {
+                userId = it.id
+            }
         }
 
         binding.tvRegistroPasajeroNumero.text = "Registro de pasajero #${numPassangerCurrent}"
@@ -169,12 +179,18 @@ class PassengerRegisterActivity : AppCompatActivity() {
                             numPassangerCurrent = numPassangerCurrent.plus(1)
                             binding.tvRegistroPasajeroNumero.text = "Registro de pasajero #${numPassangerCurrent}"
                         } else {
-                            val i = Intent(this, NiubizActivity::class.java)
-                            i.putExtra("idTrip", idTrip)
-                            i.putExtra("numPassenger", numPassenger)
-                            i.putExtra("fechaSalida", dayOut)
-                            startActivity(i)
-                            finish()
+                            val reservation = ReservationRequest(userId, idTrip, dayOut, numPassenger.toInt(),"Niubiz", "NoPaid","Failed")
+                            reservationController.createReservation(this, reservation) {
+                                if(it != "") {
+                                    Toast.makeText(this, "Realice pago para confirmar la reserva", Toast.LENGTH_SHORT).show()
+                                    val i = Intent(this, NiubizActivity::class.java)
+                                    i.putExtra("idTrip", idTrip)
+                                    i.putExtra("userId", userId)
+                                    i.putExtra("reservation_id", it)
+                                    startActivity(i)
+                                    finish()
+                                }
+                            }
                         }
                     }
                 }

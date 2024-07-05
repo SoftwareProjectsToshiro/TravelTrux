@@ -14,14 +14,19 @@ import java.util.Locale
 
 class ReservationRepository(context: Context) {
 
-    suspend fun createReservation(context: Context, reservationRequest: ReservationRequest): Boolean {
+    suspend fun createReservation(context: Context, reservationRequest: ReservationRequest): String {
         val apiService = Apiclient.createService(ApiService::class.java)
         val response = apiService.createReservation(reservationRequest)
         return withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 val registerResponse = response.body()
-                Toast.makeText(context, registerResponse?.msg, Toast.LENGTH_SHORT).show()
-                true
+                registerResponse?.let {
+                    Toast.makeText(context, "Reserva creada con éxito", Toast.LENGTH_SHORT).show()
+                    it.reservation_id
+                } ?: run {
+                    Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
+                    ""
+                }
             } else {
                 val errorResponse = response.errorBody()?.string()
                 val apiErrors = parseError(errorResponse)
@@ -41,7 +46,7 @@ class ReservationRepository(context: Context) {
                 } ?: run {
                     Toast.makeText(context, "Error desconocido", Toast.LENGTH_SHORT).show()
                 }
-                false
+                ""
             }
         }
     }
