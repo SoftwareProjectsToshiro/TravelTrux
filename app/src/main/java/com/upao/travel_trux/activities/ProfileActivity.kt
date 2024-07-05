@@ -94,6 +94,10 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 handleFragment(navController, item)
                 true
             }
+            R.id.nav_locations -> {
+                openMaps()
+                true
+            }
             R.id.sign_out -> {
                 handleSignOut()
                 true
@@ -109,6 +113,11 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private fun handleFragment(navController: NavController, item: MenuItem) {
         navController.navigate(item.itemId)
         binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun openMaps() {
+        val intent = Intent(this, MapsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun handleSignOut() {
