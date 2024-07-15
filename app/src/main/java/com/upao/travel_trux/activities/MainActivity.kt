@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.etEmail).text.toString()
             val password = findViewById<EditText>(R.id.etPassword).text.toString()
             val user = LoginRequest(email, password)
+            println(user)
             userController.login(this, user) { isSuccess ->
                 if (isSuccess) {
                     val intent = Intent(this, MenuActivity::class.java)
